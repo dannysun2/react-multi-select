@@ -25,6 +25,18 @@ class App extends Component {
   }
 
   render() {
+    const availableZipCodes = _.uniq(
+      this.state.options.map(option => option.zipCode)
+    ).map((zipCode, index) => {
+      return { id: index, label: zipCode };
+    });
+
+    const availableJobs = _.uniq(
+      this.state.options.map(option => option.job)
+    ).map((job, index) => {
+      return { id: index, label: job };
+    });
+
     return (
       <div>
         {this.state.options.map((item, index) => (
@@ -38,14 +50,21 @@ class App extends Component {
           <Form.Field>
             <label>Postal Codes</label>
             <MultiSelect
-              items={this.state.options.map(option => ({
-                id: option.id,
-                label: option.zipCode
-              }))}
-              selectedItems={this.state.options.map(option => ({
-                id: option.id,
-                label: option.zipCode
-              }))}
+              items={availableZipCodes}
+              selectedItems={availableZipCodes}
+              responsiveHeight={300}
+              itemHeight={30}
+              showSearch={false}
+            />
+          </Form.Field>
+
+          <br />
+
+          <Form.Field>
+            <label>Postal Codes</label>
+            <MultiSelect
+              items={availableJobs}
+              selectedItems={availableJobs}
               responsiveHeight={300}
               itemHeight={30}
               showSearch={false}
